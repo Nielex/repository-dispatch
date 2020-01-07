@@ -1,12 +1,28 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+name: Repository Dispatch'
+author: 'Nielex'
+description: 'Create a repository dispatch event'
+inputs:
+  token:
+    description: 'A repo scoped GitHub Personal Access Token'
+    required: true
+  user:
+    description: 'GitHub user to which the authentication token belongs'
+    required: true
+  repository:
+    description: 'Repository to dispatch event to'
+    required: true
+  event-type:
+    description: 'A custom webhook event name.'
+    required: true
+  client-payload:
+    description: 'JSON payload with extra information about the webhook event that your action or worklow may use. Default: {}'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.token }}
+    - ${{ inputs.user }}
+    - ${{ inputs.repository }}
+    - ${{ inputs.event-type }}
+    - ${{ inputs.client-payload }}
